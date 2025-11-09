@@ -1,5 +1,4 @@
 name: CI/CD Pipeline
-
 on:
   push:
     branches: [main]
@@ -9,33 +8,36 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Baixa o código do repositório
+      # 1️⃣ Checkout do código
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      # 2️⃣ Configura a versão do Node.js
+      # 2️⃣ Configurar Node.js
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 3️⃣ Instala dependências
+      # 3️⃣ Instalar dependências
       - name: Instalar dependências
         run: npm ci
 
-      # 4️⃣ Valida o código com ESLint
+      # 4️⃣ Rodar ESLint
       - name: Rodar ESLint
         run: npm run lint
 
-      # 5️⃣ Build do projeto (Next.js + export)
+      # 5️⃣ Build do projeto
       - name: Build do projeto
         run: npm run build
 
-      # 6️⃣ Deploy automático no GitHub Pages
+      # 6️⃣ Exportar projeto para pasta out
+      - name: Exportar Projeto
+        run: npm run export
+
+      # 7️⃣ Deploy no GitHub Pages
       - name: Deploy no GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out   # Pasta criada pelo "next export"
+          publish_dir: ./out
