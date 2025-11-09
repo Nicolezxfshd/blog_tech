@@ -1,0 +1,41 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Pega o código do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2️⃣ Configura o Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3️⃣ Instala dependências
+      - name: Instalar dependências
+        run: npm ci
+
+      # 4️⃣ Valida o código (Lint)
+      - name: Rodar ESLint
+        run: npm run lint
+
+      # 5️⃣ Build da aplicação
+      - name: Build do projeto
+        run: npm run build
+
+      # 6️⃣ Deploy automático no GitHub Pages
+      - name: Deploy no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out  # ou ./dist, dependendo do seu projeto
