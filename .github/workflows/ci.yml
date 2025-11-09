@@ -30,6 +30,7 @@ jobs:
       # 5️⃣ Build do projeto
       - name: Build do projeto
         run: npm run build
+         npm run export
 
       # 6️⃣ Exportar projeto para pasta out
       - name: Exportar Projeto
