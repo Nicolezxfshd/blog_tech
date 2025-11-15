@@ -22,12 +22,24 @@ O objetivo é entregar uma aplicação funcional, organizada e publicada automat
 - **ESLint**  
 
 ---
+Pipeline de CI/CD – GitHub Actions
+
+A pipeline executa automaticamente a cada push na branch main:
+Checkout do código
+Instalação das dependências (npm install)
+Verificação do código com ESLint (npm run lint)
+Execução dos testes (npm test)
+Build da aplicação (npm run build)
+Exportação estática (npm run export)
+Deploy da pasta /out no GitHub Pages
+
+O workflow está localizado em: .github/workflows/ci-cd.yml
 
 ## 🔧 Como rodar localmente
 
 Clone o repositório:
 
 ```bash
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-cd SEU-REPOSITORIO
+git clone blog-tech-tawny.vercel.app
+
 
